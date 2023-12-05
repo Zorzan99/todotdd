@@ -2,7 +2,7 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:todotdd/src/repositories/isar/task_model.dart';
 
-class IsarDatasource {
+class IsarDataSource {
   Isar? _isar;
 
   Future<Isar> _getInstance() async {
