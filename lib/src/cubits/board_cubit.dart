@@ -56,6 +56,13 @@ class BoardCubit extends Cubit<BoardState> {
     }
     final tasks = state.tasks.toList();
     final index = tasks.indexOf(newTask);
+    tasks[index] = newTask.copyWith(check: !newTask.check);
+    try {
+      await repository.update(tasks);
+      emit(GettedTasksBoardState(tasks: tasks));
+    } catch (e) {
+      emit(FailureBoardState(message: 'Error'));
+    }
   }
 
   @visibleForTesting

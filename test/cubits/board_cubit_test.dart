@@ -8,9 +8,12 @@ import 'package:todotdd/src/states/board_state.dart';
 class BoardRepositoryMock extends Mock implements BoardRepository {}
 
 void main() {
-  final repository = BoardRepositoryMock();
-  final cubit = BoardCubit(repository);
-  tearDown(() => reset(repository));
+  late BoardRepositoryMock repository = BoardRepositoryMock();
+  late BoardCubit cubit = BoardCubit(repository);
+  setUp(() {
+    repository = BoardRepositoryMock();
+    cubit = BoardCubit(repository);
+  });
   group("fetchTasks | ", () {
     test('Deve pegar todas as tasks', () async {
       when(() => repository.fetch()).thenAnswer(
