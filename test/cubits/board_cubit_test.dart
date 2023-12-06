@@ -9,7 +9,7 @@ class BoardRepositoryMock extends Mock implements BoardRepository {}
 
 void main() {
   late BoardRepositoryMock repository = BoardRepositoryMock();
-  late BoardCubit cubit = BoardCubit(repository);
+  late BoardCubit cubit;
   setUp(() {
     repository = BoardRepositoryMock();
     cubit = BoardCubit(repository);
