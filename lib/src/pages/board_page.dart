@@ -1,11 +1,13 @@
+// Importando bibliotecas necessárias do Flutter
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todotdd/src/cubits/board_cubit.dart';
 import 'package:todotdd/src/models/task.dart';
 import 'package:todotdd/src/states/board_state.dart';
 
+// Página principal que exibe as tarefas do quadro
 class BoardPage extends StatefulWidget {
-  const BoardPage({super.key});
+  const BoardPage({Key? key}) : super(key: key);
 
   @override
   State<BoardPage> createState() => _BoardPageState();
@@ -15,6 +17,8 @@ class _BoardPageState extends State<BoardPage> {
   @override
   void initState() {
     super.initState();
+
+    // Callback após a construção do widget para buscar tarefas
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<BoardCubit>().fetchTasks();
     });
@@ -22,10 +26,16 @@ class _BoardPageState extends State<BoardPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Obtendo a instância do cubit do contexto
     final cubit = context.watch<BoardCubit>();
+
+    // Obtendo o estado atual do cubit
     final state = cubit.state;
+
+    // Widget do corpo da tela
     Widget body = Container();
 
+    // Verificando o tipo de estado atual e construindo o corpo da tela correspondente
     if (state is EmptyBoardState) {
       body = const Center(
         key: Key("EmptyState"),
@@ -57,6 +67,7 @@ class _BoardPageState extends State<BoardPage> {
       );
     }
 
+    // Retornando a estrutura da tela com Scaffold
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tasks'),
@@ -69,8 +80,11 @@ class _BoardPageState extends State<BoardPage> {
     );
   }
 
+  // Método para exibir o diálogo de adição de tarefa
   void addTaskDialog() {
     var description = '';
+
+    // Exibindo o diálogo de alerta adaptativo
     showDialog(
       context: context,
       builder: (context) {
